@@ -24,7 +24,7 @@ export function LinksGroup({
   const items = (hasLinks ? links : []).map((link) => (
     <Link key={link.label} className={classes.link} href={link.link}>
       <link.icon size={16} />
-      <p className="text-[12px]">{link.label}</p>
+      <p className="text-[13px]">{link.label}</p>
     </Link>
   ));
 
@@ -32,7 +32,7 @@ export function LinksGroup({
     return (
       <Link key={label} className={classes.mainlink} href={"/"}>
         {Icon && <Icon size={16} />}
-        <p className="text-[12px]">{label}</p>
+        <p className="text-[13px]">{label}</p>
       </Link>
     );
 

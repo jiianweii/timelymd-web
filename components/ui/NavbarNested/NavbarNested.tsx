@@ -4,10 +4,13 @@ import {
   IconAdjustments,
   IconBuildingStore,
   IconCalendar,
+  IconDatabaseDollar,
   IconLayoutDashboard,
+  IconMessage,
   IconNotes,
   IconStethoscope,
   IconUsers,
+  IconVaccine,
   IconVideoPlus,
 } from "@tabler/icons-react";
 import { Code, Group, ScrollArea } from "@mantine/core";
@@ -27,9 +30,20 @@ const mockdata = [
       { label: "E-Visit", icon: IconVideoPlus, link: "/" },
     ],
   },
+  {
+    label: "Manage Staff",
+    initiallyOpened: true,
+    links: [
+      { label: "Doctor", icon: IconStethoscope, link: "/" },
+      { label: "Nurse", icon: IconVaccine, link: "/" },
+    ],
+  },
+  { label: "Schedule", icon: IconCalendar },
   { label: "Inventory", icon: IconBuildingStore },
   { label: "Patient", icon: IconUsers },
-  { label: "Settings", icon: IconAdjustments },
+
+  { label: "Group Chat", icon: IconMessage },
+  { label: "Revenue", icon: IconDatabaseDollar },
 ];
 
 export function NavbarNested() {
