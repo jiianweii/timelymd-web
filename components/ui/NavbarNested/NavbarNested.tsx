@@ -1,13 +1,11 @@
 "use client";
 
 import {
-  IconAdjustments,
   IconBuildingStore,
   IconCalendar,
   IconDatabaseDollar,
   IconLayoutDashboard,
   IconMessage,
-  IconNotes,
   IconStethoscope,
   IconUsers,
   IconVaccine,
@@ -21,6 +19,7 @@ import classes from "./NavbarNested.module.css";
 
 const mockdata = [
   { label: "Dashboard", icon: IconLayoutDashboard, link: "/dashboard" },
+  { label: "Schedule", icon: IconCalendar },
   {
     label: "Appointment",
     initiallyOpened: true,
@@ -38,7 +37,7 @@ const mockdata = [
       { label: "Nurse", icon: IconVaccine, link: "/" },
     ],
   },
-  { label: "Schedule", icon: IconCalendar },
+
   { label: "Inventory", icon: IconBuildingStore },
   { label: "Patient", icon: IconUsers },
 
