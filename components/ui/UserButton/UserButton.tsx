@@ -1,8 +1,11 @@
-import { IconChevronRight } from "@tabler/icons-react";
-import { Avatar, Group, Text, UnstyledButton } from "@mantine/core";
+"use client";
+
+import { Avatar, Text, UnstyledButton } from "@mantine/core";
 import classes from "./UserButton.module.css";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export function UserButton() {
+  const user = useAuthStore((state) => state.user);
   return (
     <UnstyledButton className={classes.user}>
       <Avatar
@@ -13,15 +16,13 @@ export function UserButton() {
 
       <div>
         <Text size="sm" fw={500}>
-          Harriette Spoonlicker
+          {user?.name ?? "Guest"}
         </Text>
 
         <Text c="dimmed" size="xs">
-          hspoonlicker@outlook.com
+          {user?.email ?? ""}
         </Text>
       </div>
-
-      <IconChevronRight size={14} stroke={1.5} />
     </UnstyledButton>
   );
 }
