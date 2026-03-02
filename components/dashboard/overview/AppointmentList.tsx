@@ -16,11 +16,13 @@ export default function AppointmentList() {
         setCurrentDate={setCurrentDate}
       />
 
-      <div className="w-full flex gap-x-6 items-center">
+      <div className="w-full flex justify-between items-center">
         <h1 className="font-semibold text-gray-600">
-          {currentDate === FIXED_TODAY_DATE ? "Today" : currentDate}
+          {currentDate === FIXED_TODAY_DATE
+            ? "Today"
+            : currentDate.split("-").slice(1).join("-")}
         </h1>
-        <hr className="border-t border-dotted border-gray-400 w-full" />
+        <hr className="border-t border-dotted border-gray-400 w-4/5" />
       </div>
       <div className="flex flex-col gap-y-3 w-full">
         <AppointmentCard
@@ -28,21 +30,21 @@ export default function AppointmentList() {
           status="Completed"
           timeFrom="10:00am"
           timeTo="10:15am"
-          title="Consultation"
+          title="Consultation (Natalie)"
         />
         <AppointmentCard
           type="Clinical"
           status="Ongoing"
           timeFrom="10:15am"
           timeTo="10:30am"
-          title="Consultation"
+          title="Consultation (Ismail)"
         />
         <AppointmentCard
           type="E-Visit"
           status="Upcoming"
           timeFrom="10:30am"
           timeTo="10:45am"
-          title="Consultation"
+          title="Consultation (Narein)"
         />
       </div>
     </div>
