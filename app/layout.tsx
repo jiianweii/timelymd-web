@@ -9,6 +9,10 @@ import {
   MantineProvider,
   mantineHtmlProps,
 } from "@mantine/core";
+import { NavbarNested } from "@/components/ui/NavbarNested/NavbarNested";
+import Header from "@/components/dashboard/header/Header";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { redirect } from "next/navigation";
 
 const nunitoSans = Nunito_Sans({
   subsets: ["latin"],
@@ -29,7 +33,9 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className={`${nunitoSans.className} antialiased`}>
+      <body
+        className={`${nunitoSans.className} antialiased flex min-h-screen w-screen`}
+      >
         <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
