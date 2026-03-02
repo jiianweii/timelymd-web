@@ -33,6 +33,10 @@
   background-color: var(--color-primary);
 }
 
+.active {
+  background-color: var(--color-primary) !important;
+}
+
 .mainlink {
   display: flex;
   align-items: center;
