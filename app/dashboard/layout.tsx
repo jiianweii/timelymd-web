@@ -11,11 +11,13 @@ export default function DashboardLayout({
     <>
       <NavbarNested />
       {/* Dashboard */}
-      <main className="flex-8 flex flex-col">
+      <main className="flex-8 flex flex-col size-full">
         {/* Heading */}
         <Header />
         {/* Body */}
-        <div className="size-full py-2 px-4">{children}</div>
+        <div className="size-full py-2 px-4 overflow-y-auto overflow-x-hidden">
+          {children}
+        </div>
       </main>
     </>
   );
