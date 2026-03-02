@@ -10,6 +10,7 @@ import SummaryCard from "@/components/dashboard/overview/SummaryCard";
 import AppointmentList from "@/components/dashboard/overview/AppointmentList";
 import { IconCalendar } from "@tabler/icons-react";
 import { cardBorder } from "@/constants/ui";
+import SummaryChart from "@/components/dashboard/overview/SummaryChart";
 
 const roleSummary = {
   OWNER:
@@ -37,7 +38,7 @@ export default function Page() {
   return (
     <div className="size-full flex flex-col ">
       {/* Information */}
-      <div className="flex justify-between items-center py-4">
+      <div className="flex justify-between items-center py-2">
         <div>
           <h1 className="font-bold text-lg">Overview</h1>
           <p className="text-xs">{roleSummary[user?.role || "OWNER"]}</p>
@@ -58,11 +59,23 @@ export default function Page() {
         <AppointmentList />
 
         {/* Chart */}
-        <div className={`${cardBorder} col-span-4 row-span-2`}></div>
+        <div className={`${cardBorder} col-span-4 row-span-2 flex py-2`}>
+          {/* Two charts | One for Inventory? | One for summaries */}
+          <div
+            className={`${cardBorder} border-0 border-r rounded-none flex-1`}
+          ></div>
+          <div className="p-3 h-full flex-2">
+            <SummaryChart />
+          </div>
+        </div>
         {/* Check out list */}
-        <div className={`${cardBorder} col-span-3 row-span-2`}></div>
+        <div className={`${cardBorder} col-span-3 row-span-2 px-4 py-2`}>
+          <h1 className="font-semibold">Pending Payment</h1>
+        </div>
         {/* Queue */}
-        <div className={`${cardBorder} col-span-3 row-span-2`}></div>
+        <div className={`${cardBorder} col-span-3 row-span-2 px-4 py-2`}>
+          <h1 className="font-semibold">Current Queue</h1>
+        </div>
       </div>
     </div>
   );

@@ -15,9 +15,7 @@ export default function DashboardLayout({
         {/* Heading */}
         <Header />
         {/* Body */}
-        <div className="size-full py-2 px-4 overflow-y-auto overflow-x-hidden">
-          {children}
-        </div>
+        <div className="size-full py-2 px-4 ">{children}</div>
       </main>
     </>
   );

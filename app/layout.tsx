@@ -34,7 +34,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body
-        className={`${nunitoSans.className} antialiased flex min-h-screen w-screen`}
+        className={`${nunitoSans.className} antialiased flex min-h-screen max-w-screen`}
       >
         <MantineProvider>{children}</MantineProvider>
       </body>
