@@ -11,14 +11,16 @@ import AppointmentList from "@/components/dashboard/overview/AppointmentList";
 import { IconCalendar } from "@tabler/icons-react";
 import { cardBorder } from "@/constants/ui";
 import SummaryChart from "@/components/dashboard/overview/SummaryChart";
+import OwnerDashboard from "@/components/ui/dashboard/OwnerDashboard";
+import DoctorDashboard from "@/components/ui/dashboard/DoctorDashboard";
+import StaffDashboard from "@/components/ui/dashboard/StaffDashboard";
+import LocationSelection from "@/components/dashboard/overview/Selection";
+import HelperSelection from "@/components/dashboard/overview/features/HelperSelection";
 
-const roleSummary = {
-  OWNER:
-    "Oversee and manage all clinic operations, including staff, services, schedules, and overall business performance.",
-  DOCTOR:
-    "Manage appointments, conduct consultations and e-visits, and provide prescriptions and patient care.",
-  STAFF:
-    "Handle patient queues, coordinate appointments, manage inventory, and process payments efficiently.",
+const roleDashboard = {
+  OWNER: <OwnerDashboard />,
+  DOCTOR: <DoctorDashboard />,
+  STAFF: <StaffDashboard />,
 };
 
 export default function Page() {
@@ -28,55 +30,17 @@ export default function Page() {
 
   const isAuth = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
+  const role = user?.role || "OWNER";
+
+  const Dashboard = roleDashboard[role];
 
   if (!isAuth) redirect("/login");
 
-  // Layout planning
-  //   Revenue | Patients | Appointments | Queue
-  //   Checkout  |  Upcoming Appointment
-  //   Inventory running low | Queue List
   return (
     <div className="size-full flex flex-col ">
       {/* Information */}
-      <div className="flex justify-between items-center py-2">
-        <div>
-          <h1 className="font-bold text-lg">Overview</h1>
-          <p className="text-xs">{roleSummary[user?.role || "OWNER"]}</p>
-        </div>
-
-        <DatePickerInput
-          placeholder="Pick date"
-          value={date}
-          onChange={(value) => setDate(value)}
-          leftSection={<IconCalendar size={15} />}
-        />
-      </div>
-      <div className="grid grid-cols-6 auto-rows-fr gap-2 flex-1">
-        <SummaryCard type="Revenue" />
-        <SummaryCard type="Patients" />
-        <SummaryCard type="Appointments" />
-        <SummaryCard type="Queue" />
-        <AppointmentList />
-
-        {/* Chart */}
-        <div className={`${cardBorder} col-span-4 row-span-2 flex py-2`}>
-          {/* Two charts | One for Inventory? | One for summaries */}
-          <div
-            className={`${cardBorder} border-0 border-r rounded-none flex-1`}
-          ></div>
-          <div className="p-3 h-full flex-2">
-            <SummaryChart />
-          </div>
-        </div>
-        {/* Check out list */}
-        <div className={`${cardBorder} col-span-3 row-span-2 px-4 py-2`}>
-          <h1 className="font-semibold">Pending Payment</h1>
-        </div>
-        {/* Queue */}
-        <div className={`${cardBorder} col-span-3 row-span-2 px-4 py-2`}>
-          <h1 className="font-semibold">Current Queue</h1>
-        </div>
-      </div>
+      <HelperSelection date={date} setDate={setDate} role={role} />
+      {Dashboard}
     </div>
   );
 }
