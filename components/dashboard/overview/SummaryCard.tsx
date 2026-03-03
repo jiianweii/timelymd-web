@@ -1,5 +1,4 @@
-import { cardBorder } from "@/constants/ui";
-
+import CustomCard from "@/components/common/CustomCard";
 import { IconArrowRight, TablerIcon } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -21,9 +20,7 @@ export default function SummaryCard({
   href,
 }: SummaryCardProps) {
   return (
-    <div
-      className={`${cardBorder} px-3 py-4 flex flex-col justify-center shadow-2xs gap-y-3`}
-    >
+    <CustomCard className="px-3 py-4 flex flex-col justify-center shadow-2xs gap-y-3">
       <div className="flex justify-between">
         <div className="flex gap-x-3 items-center">
           <div
@@ -43,6 +40,6 @@ export default function SummaryCard({
         <h1 className="text-sm">More Details</h1>
         <IconArrowRight size={10} />
       </Link>
-    </div>
+    </CustomCard>
   );
 }

@@ -1,16 +1,15 @@
 import { useState } from "react";
 import AppointmentCalendar from "./AppointmentCalendar";
-import { cardBorder } from "@/constants/ui";
+
 import AppointmentCard from "./AppointmentCard";
+import CustomCard from "@/components/common/CustomCard";
 
 const FIXED_TODAY_DATE = new Date().toLocaleDateString("en-CA");
 
 export default function AppointmentList() {
   const [currentDate, setCurrentDate] = useState<string>(FIXED_TODAY_DATE);
   return (
-    <div
-      className={`${cardBorder} col-span-2 row-span-3 flex flex-col items-center py-4 px-6 gap-y-3`}
-    >
+    <CustomCard className="col-span-2 row-span-3 flex flex-col items-center py-4 px-6 gap-y-3">
       <AppointmentCalendar
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
@@ -47,6 +46,6 @@ export default function AppointmentList() {
           title="Consultation (Narein)"
         />
       </div>
-    </div>
+    </CustomCard>
   );
 }

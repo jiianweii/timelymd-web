@@ -1,6 +1,6 @@
-import { cardBorder } from "@/constants/ui";
+import CustomCard from "@/components/common/CustomCard";
+
 import { Badge } from "@mantine/core";
-import { IconStethoscope } from "@tabler/icons-react";
 
 type Status = "Completed" | "Ongoing" | "Upcoming" | "Cancelled";
 type AppointmentType = "Clinical" | "E-Visit";
@@ -27,7 +27,7 @@ export default function AppointmentCard({
   title,
 }: AppointmentCardProps) {
   return (
-    <div className={`${cardBorder} flex rounded-md w-full`}>
+    <CustomCard className="flex rounded-md w-full">
       <div className={`w-3 rounded-l-md ${statusStyles[status]}`} />
       <div className="p-3 flex flex-col gap-y-2">
         <div>
@@ -41,11 +41,11 @@ export default function AppointmentCard({
             {timeFrom} - {timeTo}
           </p>
         </div>
-        <div className="flex items-center gap-x-1">
+        {/* <div className="flex items-center gap-x-1">
           <IconStethoscope size={15} />
           <p className="font-medium text-sm">Dr. Jian Wei</p>
-        </div>
+        </div> */}
       </div>
-    </div>
+    </CustomCard>
   );
 }
