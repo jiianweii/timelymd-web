@@ -1,55 +1,25 @@
 import { cardBorder } from "@/constants/ui";
-import { Sparkline } from "@mantine/charts";
-import {
-  IconArrowRight,
-  IconCalendar,
-  IconMoneybag,
-  IconUser,
-} from "@tabler/icons-react";
+
+import { IconArrowRight, TablerIcon } from "@tabler/icons-react";
 import Link from "next/link";
 
 interface SummaryCardProps {
-  type: "Revenue" | "Patients" | "Appointments" | "Queue";
+  box: string;
+  icon: TablerIcon;
+  title: string;
+  value: string;
+
+  href: string;
 }
 
-const cardTypes = {
-  Revenue: {
-    box: "#b7f1ed",
-    icon: IconMoneybag,
-    title: "Revenue",
-    value: "$8,854",
-    stats: [10, 20, 40, 20, 40, 10, 50],
-    href: "/dashboard/revenue",
-  },
-  Patients: {
-    box: "#c7f1b7",
-    icon: IconUser,
-    title: "Patients",
-    value: 135,
-    stats: [50, 40, 20, 15, 25, 30, 40],
-    href: "/dashboard/patients",
-  },
-  Appointments: {
-    box: "#f1dfb7",
-    icon: IconCalendar,
-    title: "Appointments",
-    value: 7,
-    stats: [50, 30, 20, 10, 10, 10, 20],
-    href: "/dashboard/appointments",
-  },
-  Queue: {
-    box: "#b7bdf1",
-    icon: IconMoneybag,
-    title: "Queue",
-    value: 13,
-    stats: [30, 30, 40, 20, 40, 20, 40],
-    href: "/dashboard/queue",
-  },
-};
+export default function SummaryCard({
+  box,
+  icon: Icon,
+  title,
+  value,
 
-export default function SummaryCard({ type }: SummaryCardProps) {
-  const { box, icon: Icon, title, value, stats, href } = cardTypes[type];
-
+  href,
+}: SummaryCardProps) {
   return (
     <div
       className={`${cardBorder} px-3 py-4 flex flex-col justify-center shadow-2xs gap-y-3`}
@@ -67,15 +37,6 @@ export default function SummaryCard({ type }: SummaryCardProps) {
             <h1 className="font-bold">{value}</h1>
           </div>
         </div>
-        <Sparkline
-          w={100}
-          h={60}
-          data={stats}
-          curveType="linear"
-          color={box}
-          fillOpacity={0.6}
-          strokeWidth={2}
-        />
       </div>
       <hr className="border-t border-dotted border-gray-400" />
       <Link className="flex justify-between items-center" href={href}>
