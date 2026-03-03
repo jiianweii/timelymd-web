@@ -1,5 +1,7 @@
 import { DonutChart } from "@mantine/charts";
 import "@mantine/charts/styles.css";
+import { IconArrowRight } from "@tabler/icons-react";
+import Link from "next/link";
 
 interface LegendItemProps {
   name: string;
@@ -31,7 +33,7 @@ function LegendItem({ color, name, value }: LegendItemProps) {
 
 export default function CustomDonutChart() {
   return (
-    <div className="flex items-center gap-x-4 self-center">
+    <div className="flex items-center gap-x-6 self-center">
       <div className="relative">
         <DonutChart data={data} withTooltip={false} />
         {/* Labels */}
@@ -40,10 +42,19 @@ export default function CustomDonutChart() {
           <p className="text-[10px] text-gray-600">Total employees</p>
         </div>
       </div>
-      <div className="grid grid-rows-[1fr_1fr] grid-cols-[100px_100px] flex-1 gap-2.5">
-        {data.map((d) => (
-          <LegendItem key={d.name} {...d} />
-        ))}
+      <div className="flex flex-col justify-evenly h-full">
+        <div className="grid grid-rows-[1fr_1fr] grid-cols-[100px_100px] gap-1.5">
+          {data.map((d) => (
+            <LegendItem key={d.name} {...d} />
+          ))}
+        </div>
+        <Link
+          href="/dashboard/attendance"
+          className=" flex items-center justify-between"
+        >
+          <p className="text-sm font-medium">View All Details</p>
+          <IconArrowRight size={10} />
+        </Link>
       </div>
     </div>
   );
