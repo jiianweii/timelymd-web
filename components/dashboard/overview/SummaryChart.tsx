@@ -1,4 +1,5 @@
 import { AreaChart } from "@mantine/charts";
+import "@mantine/charts/styles.css";
 
 const data = [
   { time: "9:00", visits: 12 },
