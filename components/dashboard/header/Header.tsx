@@ -1,18 +1,7 @@
 "use client";
 
-import MenuAvatar from "@/components/common/MenuAvatar";
-import MenuButton from "@/components/common/MenuButton";
-import { UserButton } from "@/components/ui/UserButton/UserButton";
 import { capitalizeFirstLetter } from "@/utils/helper";
-import { Avatar, Menu, SegmentedControl } from "@mantine/core";
-import {
-  IconBell,
-  IconHelp,
-  IconLogout,
-  IconMessage,
-  IconMessageCircle,
-  IconSettings,
-} from "@tabler/icons-react";
+
 import { usePathname } from "next/navigation";
 import TeamMembers from "./TeamMembers";
 import Notification from "./Notification";
@@ -37,12 +26,11 @@ export default function Header() {
   return (
     <div className="flex justify-between w-full px-4 py-3 items-center border-b-border border-b">
       <div className="leading-5">
-        <h1>{title}</h1>
+        <h1 className="font-bold">{title}</h1>
         <p className="text-xs text-gray-600">{today}</p>
       </div>
       <div className="flex gap-x-4 items-center">
         <TeamMembers />
-
         <Notification />
         <Message />
         <Profile />
