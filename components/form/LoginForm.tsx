@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore, User } from "@/stores/useAuthStore";
+import { useAuthStore, User, UserRole } from "@/stores/useAuthStore";
 import { Box, Button, Checkbox, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
@@ -10,18 +10,6 @@ import { useState } from "react";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const signIn = useAuthStore((state) => state.setUser);
-
-  function handleSignIn() {
-    const user: User = {
-      id: 1,
-      name: "Dr. Jian Wei",
-      email: "jianweipeh@gmail.com",
-      profileUrl: "",
-      role: "OWNER",
-    };
-
-    signIn(user);
-  }
 
   const form = useForm({
     mode: "uncontrolled",
@@ -33,6 +21,26 @@ export default function LoginForm() {
       },
     },
   });
+
+  function handleSignIn() {
+    let role: UserRole = "OWNER";
+    const email = form.values.user.email;
+    email === "jianweipeh@gmail.com"
+      ? (role = "OWNER")
+      : email === "itsjianweii@gmail.com"
+        ? (role = "DOCTOR")
+        : (role = "STAFF");
+
+    const user: User = {
+      id: 1,
+      name: "Dr. Jian Wei",
+      email: email,
+      profileUrl: "",
+      role: role,
+    };
+
+    signIn(user);
+  }
 
   const icon = showPassword ? <IconEyeOff size={16} /> : <IconEye size={16} />;
 
