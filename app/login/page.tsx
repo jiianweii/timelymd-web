@@ -4,20 +4,22 @@ import Logo from "@/components/common/Logo";
 import LoginForm from "@/components/form/LoginForm";
 import { useAuthStore, User } from "@/stores/useAuthStore";
 import { Button } from "@mantine/core";
-import {
-  IconBrandApple,
-  IconBrandGoogle,
-  IconBrandGoogleFilled,
-} from "@tabler/icons-react";
+import { IconBrandApple, IconBrandGoogleFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Login() {
   const isAuth = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
-    if (isAuth) redirect("/");
+    if (isAuth) {
+      const role = user?.role;
+      if (role == "OWNER") redirect("/dashboard/owner");
+      if (role == "DOCTOR") redirect("/dashboard/doctor");
+      if (role == "STAFF") redirect("/dashboard/staff");
+    }
   }, [isAuth]);
 
   return (

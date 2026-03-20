@@ -1,41 +1,33 @@
 "use client";
 
-import "@mantine/core/styles.css";
-import "@mantine/dates/styles.css";
-import { useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-import OwnerDashboard from "@/components/ui/dashboard/OwnerDashboard";
-import DoctorDashboard from "@/components/ui/dashboard/DoctorDashboard";
-import StaffDashboard from "@/components/ui/dashboard/StaffDashboard";
-
-import HelperSelection from "@/components/dashboard/overview/features/HelperSelection";
-
-const roleDashboard = {
-  OWNER: <OwnerDashboard />,
-  DOCTOR: <DoctorDashboard />,
-  STAFF: <StaffDashboard />,
+const ROLE_REDIRECTS: Record<string, string> = {
+  OWNER: "/dashboard/owner",
+  DOCTOR: "/dashboard/doctor",
+  STAFF: "/dashboard/staff",
 };
 
 export default function Page() {
-  const [date, setDate] = useState<string | null>(
-    new Date().toLocaleDateString("en-CA"),
-  );
-
-  const isAuth = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
-  const role = user?.role || "OWNER";
+  const router = useRouter();
 
-  const Dashboard = roleDashboard[role];
+  useEffect(() => {
+    if (!user) {
+      router.replace("/login");
+      return;
+    }
 
-  if (!isAuth) redirect("/login");
+    const redirectPath = ROLE_REDIRECTS[user.role];
 
-  return (
-    <div className="size-full flex flex-col ">
-      {/* Information */}
-      <HelperSelection date={date} setDate={setDate} role={role} />
-      {Dashboard}
-    </div>
-  );
+    if (redirectPath) {
+      router.replace(redirectPath);
+    } else {
+      router.replace("/login");
+    }
+  }, [user, router]);
+
+  return null;
 }
