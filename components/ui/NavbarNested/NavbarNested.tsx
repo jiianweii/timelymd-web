@@ -5,7 +5,10 @@ import {
   IconCalendar,
   IconDatabaseDollar,
   IconLayoutDashboard,
+  IconLayoutSidebarLeftCollapseFilled,
   IconMessage,
+  IconReport,
+  IconSettings,
   IconStethoscope,
   IconUsers,
   IconVaccine,
@@ -17,50 +20,95 @@ import { UserButton } from "../UserButton/UserButton";
 
 import classes from "./NavbarNested.module.css";
 import Logo from "@/components/common/Logo";
+import { useAuthStore } from "@/stores/useAuthStore";
 
-const mockdata = [
+const commonItems = [
   { label: "Dashboard", icon: IconLayoutDashboard, link: "/dashboard" },
   { label: "Schedule", icon: IconCalendar, link: "/schedule" },
-  {
-    label: "Appointment",
-    initiallyOpened: true,
-    links: [
-      { label: "Overview", icon: IconCalendar, link: "/appointment" },
-      {
-        label: "Clinical",
-        icon: IconStethoscope,
-        link: "/appointment/clinical",
-      },
-      { label: "E-Visit", icon: IconVideoPlus, link: "/appointment/e-visit" },
-    ],
-  },
-  {
-    label: "Manage Staff",
-    initiallyOpened: true,
-    links: [
-      { label: "Doctor", icon: IconStethoscope, link: "/manage-staff/doctor" },
-      { label: "Nurse", icon: IconVaccine, link: "/manage-staff/nurse" },
-    ],
-  },
-
-  { label: "Inventory", icon: IconBuildingStore, link: "/inventory" },
-  { label: "Patient", icon: IconUsers, link: "/patient-list" },
-
-  { label: "Chat", icon: IconMessage, link: "/chat" },
-  { label: "Revenue", icon: IconDatabaseDollar, link: "/revenue" },
 ];
 
+export const roleBasedNav = {
+  OWNER: [
+    ...commonItems,
+    {
+      label: "Appointment",
+      initiallyOpened: true,
+      links: [
+        { label: "Overview", icon: IconCalendar, link: "/appointment" },
+        {
+          label: "Clinical",
+          icon: IconStethoscope,
+          link: "/appointment/clinical",
+        },
+        { label: "E-Visit", icon: IconVideoPlus, link: "/appointment/e-visit" },
+      ],
+    },
+    {
+      label: "Manage Staff",
+      initiallyOpened: true,
+      links: [
+        {
+          label: "Doctor",
+          icon: IconStethoscope,
+          link: "/manage-staff/doctor",
+        },
+        { label: "Nurse", icon: IconVaccine, link: "/manage-staff/nurse" },
+      ],
+    },
+    { label: "Inventory", icon: IconBuildingStore, link: "/inventory" },
+    { label: "Patient", icon: IconUsers, link: "/patient-list" },
+    { label: "Chat", icon: IconMessage, link: "/chat" },
+    { label: "Revenue", icon: IconDatabaseDollar, link: "/revenue" },
+    { label: "Settings", icon: IconSettings, link: "/settings" },
+  ],
+
+  DOCTOR: [
+    ...commonItems,
+    {
+      label: "Appointment",
+      initiallyOpened: true,
+      links: [
+        {
+          label: "Clinical",
+          icon: IconStethoscope,
+          link: "/appointment/clinical",
+        },
+        { label: "E-Visit", icon: IconVideoPlus, link: "/appointment/e-visit" },
+      ],
+    },
+    { label: "Patient", icon: IconUsers, link: "/patient-list" },
+    { label: "Chat", icon: IconMessage, link: "/chat" },
+    { label: "Reports", icon: IconReport, link: "/reports" },
+  ],
+
+  STAFF: [
+    ...commonItems,
+    {
+      label: "Appointment",
+      initiallyOpened: true,
+      links: [
+        { label: "Overview", icon: IconCalendar, link: "/appointment" },
+        { label: "E-Visit", icon: IconVideoPlus, link: "/appointment/e-visit" },
+      ],
+    },
+    { label: "Patient", icon: IconUsers, link: "/patient-list" },
+    { label: "Inventory", icon: IconBuildingStore, link: "/inventory" },
+    { label: "Chat", icon: IconMessage, link: "/chat" },
+  ],
+};
+
 export function NavbarNested() {
-  const links = mockdata.map((item) => (
+  const user = useAuthStore((state) => state.user);
+  const links = roleBasedNav[user?.role || "STAFF"].map((item) => (
     <LinksGroup {...item} key={item.label} />
   ));
 
   return (
     <nav className={`${classes.navbar} bg-navbar`}>
       <div className={classes.header}>
-        <Group justify="space-between">
+        <Group justify="space-between" align="center">
           <Logo />
-          <Code fw={700}>v1.0.0</Code>
+          <IconLayoutSidebarLeftCollapseFilled size={18} />
         </Group>
       </div>
 
