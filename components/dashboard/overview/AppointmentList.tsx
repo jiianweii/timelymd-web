@@ -3,13 +3,14 @@ import AppointmentCalendar from "./AppointmentCalendar";
 
 import AppointmentCard from "./AppointmentCard";
 import CustomCard from "@/components/common/CustomCard";
+import { Button } from "@mantine/core";
 
 const FIXED_TODAY_DATE = new Date().toLocaleDateString("en-CA");
 
 export default function AppointmentList() {
   const [currentDate, setCurrentDate] = useState<string>(FIXED_TODAY_DATE);
   return (
-    <CustomCard className="col-span-2 row-span-3 flex flex-col items-center py-4 px-6 gap-y-3">
+    <CustomCard className="col-span-2 row-span-4 flex flex-col items-center py-4 px-6 gap-y-3">
       <AppointmentCalendar
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
@@ -29,22 +30,26 @@ export default function AppointmentList() {
           status="Completed"
           timeFrom="10:00am"
           timeTo="10:15am"
-          title="Consultation (Natalie)"
+          title="Natalie Goh"
+          appointment="General Consultation"
         />
         <AppointmentCard
           type="Clinical"
           status="Ongoing"
           timeFrom="10:15am"
           timeTo="10:30am"
-          title="Consultation (Ismail)"
+          title="Md Ismail"
+          appointment="Lab Report"
         />
         <AppointmentCard
           type="E-Visit"
           status="Upcoming"
           timeFrom="10:30am"
           timeTo="10:45am"
-          title="Consultation (Narein)"
+          title="Narein"
+          appointment="Monthly Consultation"
         />
+        <Button>View Appointments</Button>
       </div>
     </CustomCard>
   );

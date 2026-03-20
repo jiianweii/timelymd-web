@@ -1,6 +1,6 @@
 import CustomCard from "@/components/common/CustomCard";
 
-import { Badge } from "@mantine/core";
+import { Badge, Button } from "@mantine/core";
 
 type Status = "Completed" | "Ongoing" | "Upcoming" | "Cancelled";
 type AppointmentType = "Clinical" | "E-Visit";
@@ -11,11 +11,12 @@ interface AppointmentCardProps {
   timeFrom: string;
   timeTo: string;
   title: string;
+  appointment: string;
 }
 
 const statusStyles: Record<Status, string> = {
   Completed: "bg-green-500",
-  Ongoing: "bg-yellow-400",
+  Ongoing: "bg-yellow-500",
   Upcoming: "bg-blue-500",
   Cancelled: "bg-red-500",
 };
@@ -25,27 +26,31 @@ export default function AppointmentCard({
   timeFrom,
   timeTo,
   title,
+  appointment,
 }: AppointmentCardProps) {
   return (
-    <CustomCard className="flex rounded-md w-full">
-      <div className={`w-3 rounded-l-md ${statusStyles[status]}`} />
-      <div className="p-3 flex flex-col gap-y-2">
-        <div>
-          <div className="flex gap-x-2 items-center">
-            {" "}
-            <p className="font-medium">{title}</p>
-            <Badge color={type === "Clinical" ? "blue" : "green"}>{type}</Badge>
-          </div>
+    <CustomCard className="flex rounded-md w-full justify-between pr-2.5">
+      <div className="flex">
+        <div className={`w-3 rounded-l-md ${statusStyles[status]}`} />
+        <div className="p-3 flex flex-col gap-y-2">
+          <div>
+            <div className="flex gap-x-2 items-center">
+              <p className="font-medium">{title}</p>
+              <Badge color={statusStyles[status].split("-")[1]}>{status}</Badge>
+            </div>
 
-          <p className="text-sm text-gray-500">
-            {timeFrom} - {timeTo}
-          </p>
-        </div>
-        {/* <div className="flex items-center gap-x-1">
+            <p className="text-sm text-gray-500">
+              {timeFrom} - {timeTo}
+            </p>
+          </div>
+          <p className="text-sm text-gray-500">{appointment}</p>
+          {/* <div className="flex items-center gap-x-1">
           <IconStethoscope size={15} />
           <p className="font-medium text-sm">Dr. Jian Wei</p>
         </div> */}
+        </div>
       </div>
+      {type === "E-Visit" && <Button className="self-center">Join Call</Button>}
     </CustomCard>
   );
 }
